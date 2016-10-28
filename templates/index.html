@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>#breaktherules</title>
+	</head>
+	<body>
+		
+		<header>
+			<div>
+				<h1>Titanic Survivor Analysis</h1> 
+			</div>
+		</header>
+
+		<main>
+			<form name="category_selection" action="{{ url_for('index')}}" method='POST'>
+				<div>
+					<h2>Survival rate by:</h2>
+				</div>
+				<div> 
+					<select name = 'category' onchange="this.form.submit()" id="category">
+						{% if(choice_1) ==  'sex'%}
+						<option value = 'sex' selected="selected">Sex</option>
+						<option value = 'class'>Class</option>
+						<option value = 'age'>Age</option>
+						{% elif(choice_1) ==  'class'%}
+						<option value = 'sex'>Sex</option>
+						<option value = 'class' selected="selected">Class</option>
+						<option value = 'age'>Age</option>
+						{% elif(choice_1) ==  'age'%}
+						<option value = 'sex'>Sex</option>
+						<option value = 'class'>Class</option>
+						<option value = 'age' selected="selected">Age</option>
+						{% else %}
+						<option selected="selected">Select a category</option>
+						<option value = 'sex'>Sex</option>
+						<option value = 'class'>Class</option>
+						<option value = 'age'>Age</option>
+						{% endif %}
+					</select>
+				</div>
+				<div>
+					{% if(choice_1) %}
+					<label id="lblHeading"><h3>Choose survival rate by {{ choice_1 }}</h3></label>
+					{% endif %}
+				</div>
+				{% if(choice_1) ==  'sex'%}
+				<div>
+					{% if(choice_2) ==  'm'%}
+					<select name = 'sex' onchange="this.form.submit()">
+						<option value = 'male' selected="selected">Male</option>
+						<option value = 'female'>Female</option>
+					</select>
+					{% elif(choice_2) ==  'f'%}
+					<select name = 'sex' onchange="this.form.submit()">
+						<option value = 'male'>Male</option>
+						<option value = 'female' selected="selected">Female</option>
+					</select>
+					{% else %}
+					<select name = 'sex' onchange="this.form.submit()">
+						<option selected="selected">Select sex</option>
+						<option value = 'male'>Male</option>
+						<option value = 'female'>Female</option>
+					</select>
+					{% endif %}
+				</div>
+				{% endif %}
+				{% if(choice_1) ==  'class'%}
+				<div>
+					{% if(choice_2) ==  '1'%}
+					<select name = 'class' onchange="this.form.submit()">
+						<option value = '1' selected="selected">1st Class</option>
+						<option value = '2'>2nd Class</option>
+						<option value = '3'>3rd Class</option>
+					</select>
+					{% elif(choice_2) ==  '2'%}
+					<select name = 'class' onchange="this.form.submit()">
+						<option value = '1'>1st Class</option>
+						<option value = '2' selected="selected">2nd Class</option>
+						<option value = '3'>3rd Class</option>
+					</select>
+					{% elif(choice_2) ==  '3'%}
+					<select name = 'class' onchange="this.form.submit()">
+						<option value = '1'>1st Class</option>
+						<option value = '2'>2nd Class</option>
+						<option value = '3' selected="selected">3rd Class</option>
+					</select>
+					{% else %}
+					<select name = 'class' onchange="this.form.submit()">
+						<option selected="selected">Select class</option>
+						<option value = '1'>1st Class</option>
+						<option value = '2'>2nd Class</option>
+						<option value = '3'>3rd Class</option>
+					</select>
+					{% endif %}
+				</div>
+				{% endif %}
+				{% if(choice_1) ==  'age'%}
+				<div>
+					<select name = 'age' onchange="this.form.submit()">
+						{% if(choice_2) %}
+						{% for a in a_s %}
+						{% if(choice_2) == a[0] %}
+						<option value="{{ a[0] }}" id="{{ a[0] }}" selected="selected">
+							{{ a[0] }}
+						</option>
+						{% else %}
+						<option value="{{ a[0] }}" id="{{ a[0] }}">
+							{{ a[0] }}
+						</option>
+						{% endif %}
+						{% endfor %}
+						{% else %}
+						<option selected="selected">Select age</option>
+						{% for a in a_s %}
+						<option value="{{ a[0] }}" id="{{ a[0] }}">
+							{{ a[0] }}
+						</option>
+						{% endfor %}
+						{% endif %}
+					</select>
+				</div>
+				{% endif %}
+				<br>
+				<div>
+					<label id = 'resultLabel'>{{ r_s }}</label>
+				</div>
+			</form>
+		</main>
+	</body>
+</html>
